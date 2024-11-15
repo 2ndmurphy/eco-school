@@ -1,0 +1,101 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            Int              @id @default(autoincrement())
+  username      String           @unique
+  email         String           @unique
+  password      String
+  profileImage  String?          // URL or path to profile image
+  points        Int              @default(0)
+  videos        Video[]
+  photos        Photo[]  
+  likes         Like[]
+  notifications Notification[]
+  pointsEntries Points[]
+  userChallenges UserChallenges[]
+  createdAt     DateTime         @default(now())
+}
+
+model Challenge {
+  id            Int               @id @default(autoincrement())
+  title         String
+  description   String
+  startDate     DateTime
+  endDate       DateTime
+  pointsReward  Int
+  createdAt     DateTime          @default(now())
+  userChallenges UserChallenges[]
+}
+
+model ChallengeTemplate {
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String
+  pointsReward Int
+}
+
+model UserChallenges {
+  id             Int        @id @default(autoincrement())
+  userId         Int        
+  challengeId    Int
+  status         String     // e.g., "completed", "in-progress"
+  completionDate DateTime?
+  user           User       @relation(fields: [userId], references: [id])
+  challenge      Challenge  @relation(fields: [challengeId], references: [id])
+}
+
+model Points {
+  id          Int      @id @default(autoincrement())
+  userId      Int      
+  points      Int
+  description String
+  dateAdded   DateTime @default(now())
+  user        User?     @relation(fields: [userId], references: [id])
+}
+
+model Video {
+  id        Int      @id @default(autoincrement())
+  userId    Int      
+  url       String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Photo {
+  id        Int      @id @default(autoincrement())
+  userId    Int      
+  url       String
+  width     Int
+  height    Int
+  likes     Like[]
+  hash      String   @unique
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    Int      // User yang melakukan like
+  photoId   Int?     // Bisa null jika kita juga menambahkan like ke Video
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  photo     Photo?   @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, photoId])
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  userId      Int      // User yang menerima notifikasi
+  message     String   // Pesan notifikasi
+  createdAt   DateTime @default(now())
+  read        Boolean  @default(false)
+  user        User     @relation(fields: [userId], references: [id])
+}
