@@ -13,7 +13,7 @@ import { Swords, Leaf, Shovel } from "lucide-react";
 //? custom UI
 import UserItem from "@/components/dashboard/UserItem";
 import CardWord from "@/components/dashboard/CardWord";
-import Media from "@/components/ContentMedia";
+import Media from "@/components/CommunityMedia";
 import UserMenu from "@/components/dashboard/UserMenu";
 import ChallengeCard from "@/components/dashboard/ChallengeCard";
 import CardBlogs from "@/components/dashboard/CardBlogs";

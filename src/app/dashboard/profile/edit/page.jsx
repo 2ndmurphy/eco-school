@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import { Button } from "@/components/ui/button";
 import Loading from "../../../loading";
-import Media from "@/components/ContentMedia";
+import Media from "@/components/CommunityMedia";
 
 export default function Edit() {
   const { user, loading, error } = useUser();

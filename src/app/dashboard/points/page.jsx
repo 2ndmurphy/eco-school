@@ -5,18 +5,27 @@ import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 
-import { ChevronLeft } from "lucide-react";
 import BallTriangleLoad from "../loading";
 import Loading from "@/app/loading";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+
+import Notification from "@/components/Notification";
 
 export default function PointsPage() {
   const { user, loading, error } = useUser();
   const [image, setImage] = useState(null);
   const [points, setPoints] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({
+    success: false,
+    failed: false,
+    error: false,
+    titles: "",
+    description: "",
+  });
+  const [NotificationVisible, setNotificationVisible] = useState(false);
+
   const router = useRouter();
 
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
@@ -40,12 +49,24 @@ export default function PointsPage() {
 
   const handleUpload = async () => {
     if (!image) {
-      setMessage("Please upload an image.");
+      setMessage({
+        success: false,
+        failed: true,
+        error: false,
+        titles: "",
+        description: "Please upload an image.",
+      });
       return;
     }
 
     setIsUploading(true);
-    setMessage("");
+    setMessage({
+      success: false,
+      failed: false,
+      error: false,
+      titles: "",
+      description: "",
+    });
 
     const formData = new FormData();
     formData.append("photos", image);
@@ -60,16 +81,36 @@ export default function PointsPage() {
       const result = await response.json();
       if (result.ok) {
         setPoints(points + result.points);
-        setMessage(`Image verified! You earned ${result.points} points.`);
+        setMessage({
+          success: true,
+          failed: false,
+          error: false,
+          titles: "Image verified!",
+          description: `You earned ${result.points} points.`,
+        });
       } else {
-        setMessage(result.error || "Image verification failed.");
+        setMessage({
+          success: false,
+          failed: true,
+          error: false,
+          titles: "Please try again.",
+          description: result.error || "Image verification failed.",
+        });
       }
     } catch (error) {
       console.error(error);
-      setMessage("Something went wrong!");
+      setMessage({
+        success: false,
+        failed: false,
+        error: true,
+        titles: "",
+        description: "Something went wrong!",
+      });
     } finally {
       setIsUploading(false);
+      setImage(null);
     }
+    setNotificationVisible(true);
   };
 
   return (
@@ -115,7 +156,27 @@ export default function PointsPage() {
           {isUploading ? <BallTriangleLoad /> : "Verifikasi"}
         </Button>
 
-        {message && <p className="mt-4">{message}</p>}
+        {message.description && (
+          <div className="absolute right-3 bottom-16 z-50">
+            {NotificationVisible && (
+              <Notification
+                type={
+                  message.success
+                    ? "success"
+                    : message.failed
+                    ? "warning"
+                    : "error"
+                }
+                header={message.titles}
+                description={message.description}
+                onClose={() => {
+                  setNotificationVisible(false);
+                  setImage(null);
+                }}
+              />
+            )}
+          </div>
+        )}
       </section>
     </div>
   );

@@ -3,9 +3,9 @@ import { supabase } from "../../../lib/supabaseClient";
 import { authMiddleware } from "../../../utils/authMiddleware";
 import { verifyImageWithGoogleAI } from "../../../utils/GeminiVerifier";
 
-import { getTodayChallenge } from "@/lib/challenges/getTodayChallenge";
-import { assignUserChallenge } from "@/lib/challenges/assignUserChallenge";
-import { completeUserChallenge } from "@/lib/challenges/completeUserChallenge";
+// import { getTodayChallenge } from "@/lib/challenges/getTodayChallenge";
+// import { assignUserChallenge } from "@/lib/challenges/assignUserChallenge";
+// import { completeUserChallenge } from "@/lib/challenges/completeUserChallenge";
 
 import prisma from "@/lib/prisma";
 import sizeOf from "image-size";
@@ -32,7 +32,7 @@ export async function POST(req) {
   //? Jika verifikasi gagal, hentikan proses dan beri pesan error
   if (!isVerified) {
     return NextResponse.json(
-      { error: "Image verification failed, no points awarded" },
+      { error: "verification failed, no points awarded" },
       { status: 400 }
     );
   }
@@ -99,28 +99,28 @@ export async function POST(req) {
   });
 
   //? poin tambahan jika sesuai dengan challenges
-  const todayChallenge = await getTodayChallenge();
-  if (todayChallenge) {
-    await assignUserChallenge(user.id, todayChallenge.id);
+  // const todayChallenge = await getTodayChallenge();
+  // if (todayChallenge) {
+  //   await assignUserChallenge(user.id, todayChallenge.id);
 
-    if (
-      isVerified &&
-      (await completeUserChallenge(user.id, todayChallenge.id))
-    ) {
-      await prisma.user.update({
-        where: { id: user.id },
-        data: { points: { increment: todayChallenge.pointsReward } },
-      });
+  //   if (
+  //     isVerified &&
+  //     (await completeUserChallenge(user.id, todayChallenge.id))
+  //   ) {
+  //     await prisma.user.update({
+  //       where: { id: user.id },
+  //       data: { points: { increment: todayChallenge.pointsReward } },
+  //     });
 
-      await prisma.points.create({
-        data: {
-          userId: user.id,
-          points: todayChallenge.pointsReward,
-          description: `Bonus points for completing today's challenge ${todayChallenge.title}`,
-        },
-      });
-    }
-  }
+  //     await prisma.points.create({
+  //       data: {
+  //         userId: user.id,
+  //         points: todayChallenge.pointsReward,
+  //         description: `Bonus points for completing today's challenge ${todayChallenge.title}`,
+  //       },
+  //     });
+  //   }
+  // }
 
   return NextResponse.json({
     ok: true,

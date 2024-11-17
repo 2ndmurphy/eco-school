@@ -19,7 +19,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href="/dashboard/globals" className="hover:scale-90" prefetch>
+          <Link href="/dashboard/community" className="hover:scale-90" prefetch>
             <Search className="text-black hover:scale-110" />
           </Link>
         </li>

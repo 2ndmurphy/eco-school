@@ -1,4 +1,6 @@
 // src/components/Media.js
+"use client";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import ImagePlaceholder from "./placeholder/ImagePlaceholder";
@@ -6,7 +8,7 @@ import LikeButton from "./LikeButton";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const Media = ({ username }) => {
+const Community = ({ username }) => {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
@@ -47,7 +49,7 @@ const Media = ({ username }) => {
                   height={300}
                   priority
                 />
-                <figcaption className="absolute flex flex-col items-end text-lg text-white top-0 w-full h-full z-30 p-2 bg-transparent rounded-lg">
+                <figcaption className="absolute flex flex-col items-end text-lg text-white top-0 w-full h-full z-30 p-2 bg-slate-900 bg-opacity-10 rounded-lg">
                   <div className="flex grow">
                     <LikeButton
                       photoId={photo.id}
@@ -73,4 +75,4 @@ const Media = ({ username }) => {
   );
 };
 
-export default Media;
+export default Community;
