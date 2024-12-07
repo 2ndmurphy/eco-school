@@ -14,17 +14,45 @@ const CardWord = ({ userPoints }) => {
       className="w-full max-w-md"
     >
       <CarouselContent>
-        {/* Card 1 - User Points */}
+        {/* Card 1 - Greeting User */}
         <CarouselItem>
-          <Card className="w-[380px] h-40 bg-yellow-400">
+          <Card className="w-[335px] h-40 bg-[#A8D5BA]">
             <CardContent className="relative flex w-full h-full items-center justify-center">
-              <div className="w-full h-full flex flex-col items-start justify-center text-xl text-primary-foreground font-bold p-3 z-50">
-                <h1 className="grow text-8xl">{userPoints}</h1>
-                <div className="w-full flex justify-between items-center">
-                  <h2>YOUR POINTS</h2>
-                  <Button>
-                    Get More <ArrowRight />
-                  </Button>
+              <div className="w-full h-full flex flex-col text-[#2E604A]">
+                <h1 className="text-xl">Selamat Datang!</h1>
+                <h1 className="text-xl">Siap jadi bagian dari perubahan?</h1>
+
+                <div className="absolute right-1 -bottom-5 w-[150px] -z-0">
+                  <Image
+                    src="/images/card/ecosystem.png"
+                    width={600}
+                    height={600}
+                    alt="coin.png"
+                  />
+                </div>
+
+                <div className="text-sm text-slate-100 ">
+                  <p className="line-clamp-4">
+                    Ambil tantangan, kumpulkan poin, dan buat dampak nyata bagi
+                    lingkungan.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </CarouselItem>
+
+        {/* Card 2 - User Points */}
+        <CarouselItem>
+          <Card className="w-[335px] h-40 bg-yellow-300">
+            <CardContent className="relative flex w-full h-full items-center justify-center">
+              <div className="w-full h-full flex flex-col items-start justify-center text-xl text-[#FFFFFF] font-bold p-2 z-50">
+                <h1 className="grow text-6xl">{userPoints}</h1>
+                <div className="w-full">
+                  <h2>Poinmu Saat Ini</h2>
+                  <p className="text-sm text-slate-100">
+                    Lanjutkan aksi hebatmu dan raih lebih banyak reward!
+                  </p>
                 </div>
               </div>
 
@@ -40,23 +68,20 @@ const CardWord = ({ userPoints }) => {
           </Card>
         </CarouselItem>
 
-        {/* Card 2 - Shouting Challenge */}
+        {/* Card 3 - Challenges */}
         <CarouselItem>
-          <Card className="w-[380px] h-40 bg-blue-600">
+          <Card className="w-[335px] h-40 bg-[#F4A261]">
             <CardContent className="flex w-full h-full items-center justify-center">
-              <div className="w-full h-full  flex items-center justify-center text-xl font-bold">
-                <h1>Shouting Challenge</h1>
-              </div>
-            </CardContent>
-          </Card>
-        </CarouselItem>
+              <div className="w-full h-full flex flex-col text-[#4A3F35]">
+                <h1 className="text-xl">Tantangan Baru Menantimu!</h1>
+                <h1 className="text-xl">Ayo, Ubah Aksi Jadi Prestasi!</h1>
 
-        {/* Card 3 - Leaderboard */}
-        <CarouselItem>
-          <Card className="w-[380px] h-40 bg-green-600">
-            <CardContent className="flex w-full h-full items-center justify-center">
-              <div className="w-full h-full flex items-center justify-center text-xl text-primary-foreground font-bold">
-                <h1>Leaderboard</h1>
+                <div className="text-sm text-slate-100">
+                  <p className="line-clamp-4">
+                    Ikuti tantangan seru, tingkatkan skor, dan jadilah inspirasi
+                    untuk lingkunganmu.
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -64,32 +89,56 @@ const CardWord = ({ userPoints }) => {
 
         {/* Card 4 - Rewards */}
         <CarouselItem>
-          <Card className="w-[380px] h-40 bg-fuchsia-700">
+          <Card className="w-[335px] h-40 bg-[#FFC857]">
             <CardContent className="flex w-full h-full items-center justify-center">
-              <div className="w-full h-full flex items-center justify-center text-xl font-bold">
-                <h1>Rewards</h1>
+              <div className="w-full h-full flex flex-col text-[#343434]">
+                <h1 className="text-xl">Hadiah untuk Aksi Hebatmu!</h1>
+                <h1 className="text-xl">Kumpulkan, Tukarkan, Rayakan!</h1>
+
+                <div className="text-sm text-slate-200">
+                  <p className="line-clamp-4">
+                    Tukar poinmu dengan hadiah menarik sebagai apresiasi atas
+                    kontribusimu menjaga lingkungan.
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
         </CarouselItem>
 
-        {/* Card 5 - Achievements */}
+        {/* Card 5 - Leaderboard */}
         <CarouselItem>
-          <Card className="w-[380px] h-40 bg-cyan-700">
+          <Card className="w-[335px] h-40 bg-[#3A86FF]">
             <CardContent className="flex w-full h-full items-center justify-center">
-              <div className="w-full h-full flex items-center justify-center text-xl text-primary-foreground font-bold">
-                <h1>Achievements</h1>
+              <div className="w-full h-full flex flex-col text-[#FFFFFF]">
+                <h1 className="text-xl">Siapa yang Terdepan?</h1>
+                <h1 className="text-xl">Lihat Pahlawan Lingkungan Terbaik!</h1>
+
+                <div className="text-sm text-slate-200">
+                  <p className="line-clamp-4">
+                    Bersaing sehat dan temukan namamu di puncak leaderboard.
+                    Jadilah inspirasi bagi komunitas!
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
         </CarouselItem>
 
-        {/* Card 5 - Achievements */}
+        {/* Card 5 - Community */}
         <CarouselItem>
-          <Card className="w-[380px] h-40 bg-orange-400">
+          <Card className="w-[335px] h-40 bg-[#9D8DF1]">
             <CardContent className="flex w-full h-full items-center justify-center">
-              <div className="w-full h-full flex items-center justify-center text-xl text-primary font-bold">
-                <h1>Events</h1>
+              <div className="w-full h-full flex flex-col text-[#F0F0F0]">
+                <h1 className="text-xl">Bersama untuk Lingkungan!</h1>
+                <h1 className="text-xl">Temukan Inspirasi dari Sesama</h1>
+
+                <div className="text-sm text-slate-300">
+                  <p className="line-clamp-4">
+                    Lihat aksi nyata dari komunitas dan bagikan semangat menjaga
+                    bumi. Karena bersama, kita lebih kuat!
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>

@@ -13,15 +13,21 @@ export async function GET(req, { params }) {
         url: true,
         width: true,
         height: true,
+        likes: true,
       },
     });
 
+    const totalLikes = photos.reduce(
+      (acc, photo) => acc + photo.likes.length,
+      0
+    );
+    
     // Count the user's photos
     const photoCount = await prisma.photo.count({
       where: { userId: parseInt(userId) },
     });
 
-    return NextResponse.json({ photos, photoCount });
+    return NextResponse.json({ photos, photoCount, totalLikes });
   } catch (error) {
     console.error("Error fetching user photos:", error);
     return NextResponse.error();

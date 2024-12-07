@@ -7,7 +7,7 @@ import UserProvider from "@/context/UserContext";
 export default function Layout({ children }) {
   return (
     <>
-      <main className="flex flex-col bg-[#d9dee0] justify-center items-center overflow-x-hidden h-dvh max-w-md mx-auto">
+      <main className="flex flex-col bg-[#d9dee0] justify-center items-center overflow-x-hidden h-dvh max-w-sm mx-auto">
         <UserProvider>{children}</UserProvider>
         <Navbar />
       </main>

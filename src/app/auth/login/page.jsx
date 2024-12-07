@@ -121,7 +121,7 @@ export default function Login() {
                     className="relative w-full h-12 py-3 text-lg"
                   >
                     {isLoading ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <span className="loader-button"></span>
                     ) : (
                       "Login"
                     )}

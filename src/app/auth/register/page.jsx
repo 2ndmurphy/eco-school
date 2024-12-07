@@ -31,7 +31,7 @@ export default function Register() {
     console.log("🚀 ~ handleSubmit ~ data:", data);
     if (res.ok) {
       console.log(res.message);
-      router.push("/auth/login");
+      router.push("/dashboard");
     } else {
       setError(data.error);
     }

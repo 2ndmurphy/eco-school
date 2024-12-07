@@ -8,7 +8,7 @@ import LikeButton from "./LikeButton";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const Community = ({ username }) => {
+const Community = () => {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
@@ -56,12 +56,17 @@ const Community = ({ username }) => {
                       initialLiked={photo.isLikedByUser}
                     />
                   </div>
-                  <div className="w-full flex space-x-3 items-center text-primary-foreground">
-                    <Avatar>
-                      <AvatarImage src="" alt="UserProfile" />
-                      <AvatarFallback>CN</AvatarFallback>
+                  <div className="w-full flex space-x-2 items-center justify-center text-primary-foreground">
+                    <Avatar className="flex justify-center w-8 h-8 bg-slate-500 rounded-full text-white text-2xl border-none outline-none">
+                      <AvatarImage
+                        src={photo.profileUser}
+                        alt="UserProfile"
+                      />
+                      <AvatarFallback className="text-md font-semibold">
+                        {photo.username?.slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
                     </Avatar>
-                    <h4 className="text-sm font-semibold">{username}</h4>
+                    <h4 className="text-sm">{photo.username}</h4>
                   </div>
                 </figcaption>
               </figure>
@@ -76,3 +81,4 @@ const Community = ({ username }) => {
 };
 
 export default Community;
+

@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const UserMenu = () => {
+const UserMenu = ({username, profile}) => {
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -37,9 +37,11 @@ const UserMenu = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div className="avatar rounded-full min-h-10 min-w-10 bg-emerald-600 text-primary font-[700px] flex items-center justify-center">
-            <Avatar className="cursor-pointer">
-              <AvatarImage src="" alt="UserProfile" />
-              <AvatarFallback>CN</AvatarFallback>
+            <Avatar className="cursor-pointer flex items-center justify-center">
+              <AvatarImage src={profile} alt="UserProfile" />
+              <AvatarFallback className="text-lg">
+                {username?.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
             </Avatar>
           </div>
         </DropdownMenuTrigger>

@@ -21,12 +21,20 @@ export async function GET(req) {
           where: { userId },
           select: { id: true },
         },
+        user: {
+          select: {
+            username: true,
+            profileImage: true
+          }
+        }
       },
     });
 
     const photosWithLikeStatus = photos.map((photo) => ({
       ...photo,
       isLikedByUser: photo.likes.length > 0,
+      username: photo.user.username,
+      profileUser: photo.user.profileImage
     }));
 
     return NextResponse.json(photosWithLikeStatus);

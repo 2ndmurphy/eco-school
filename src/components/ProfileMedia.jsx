@@ -45,11 +45,7 @@ function ProfileMedia({ userId, photoCount }) {
             />
             <figcaption className="absolute flex flex-col text-lg text-white bottom-0 w-full z-30 px-2 bg-transparent rounded-lg">
               <div className="flex justify-between items-center">
-                [caption]
-                {/* <LikeButton
-                  photoId={photo.id}
-                  initialLiked={photo.isLikedByUser}
-                /> */}
+                
               </div>
             </figcaption>
           </figure>
@@ -61,7 +57,7 @@ function ProfileMedia({ userId, photoCount }) {
   return (
     <div>
       <div className="w-full grid grid-cols-2 gap-x-5 gap-y-5 place-items-center">
-        {photos.length > 0 ? renderedPhotos : <ImagePlaceholder />}
+        {photos.length > 0 ? renderedPhotos : <div></div>}
       </div>
     </div>
   );

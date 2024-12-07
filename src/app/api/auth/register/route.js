@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { hashPassword } from "@/utils/auth";
 import { NextResponse } from "next/server";
+import { generateToken, comparePassword } from "@/utils/auth";
 
 export async function POST(request) {
   const { username, email, password } = await request.json();
@@ -25,7 +26,7 @@ export async function POST(request) {
 
     const hashedPassword = await hashPassword(password);
 
-    await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         username,
         email,
@@ -33,10 +34,24 @@ export async function POST(request) {
       },
     });
 
-    return NextResponse.json(
-      { ok: true, message: "User registered successfully" },
+    const token = generateToken(newUser);
+    const response = NextResponse.json(
+      {
+        ok: true,
+        message: "User registered successfully",
+      },
       { status: 201 }
     );
+
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "production",
+      maxAge: 24 * 60 * 60,
+      sameSite: "strict",
+      path: "/",
+    });
+    
+    return response;
   } catch (error) {
     console.error(error);
     return NextResponse.json(

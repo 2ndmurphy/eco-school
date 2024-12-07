@@ -5,7 +5,6 @@ import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 
-import BallTriangleLoad from "../loading";
 import Loading from "@/app/loading";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -25,7 +24,6 @@ export default function PointsPage() {
     description: "",
   });
   const [NotificationVisible, setNotificationVisible] = useState(false);
-
   const router = useRouter();
 
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
@@ -114,8 +112,8 @@ export default function PointsPage() {
   };
 
   return (
-    <div className="relative flex items-center w-full max-w-md h-screen bg-slate-100">
-      <section className="relative w-full h-full flex flex-col items-center justify-center px-6 py-2 space-y-6">
+    <div className="relative flex items-center w-full h-full bg-slate-100">
+      <section className="relative w-full h-full flex flex-col items-center px-4 py-10 space-y-10 overflow-y-scroll">
         <div className="bagde-warning w-full h-32 bg-yellow-200 rounded-lg border-4 border-white p-3">
           <h1>Peringatan!</h1>
 
@@ -125,36 +123,43 @@ export default function PointsPage() {
           </p>
         </div>
 
-        <div
-          {...getRootProps({
-            className:
-              "border-dashed border-4 border-border p-6 w-full rounded-md h-64 flex items-center text-center justify-center bg-primary-foreground overflow-hidden cursor-pointer",
-          })}
-        >
-          <input {...getInputProps()} />
-          {image ? (
-            <Image
-              src={URL.createObjectURL(image)}
-              width={200}
-              height={200}
-              alt="Dropped image"
-            />
-          ) : (
-            <p>
-              Drag dan drop file foto dengan format jpeg/jpg/png, atau klik
-              untuk memilih file
-            </p>
-          )}
-        </div>
+        <div className="upload-box w-full flex flex-col items-center space-y-5">
+          <div
+            {...getRootProps({
+              className:
+                "border-dashed border-4 border-border p-6 w-full rounded-md h-64 flex items-center text-center justify-center bg-primary-foreground overflow-hidden cursor-pointer",
+            })}
+          >
+            <input {...getInputProps()} />
+            {image ? (
+              <Image
+                src={URL.createObjectURL(image)}
+                width={200}
+                height={200}
+                alt="Dropped image"
+              />
+            ) : (
+              <p>
+                Drag dan drop file image dengan format jpeg/jpg/png atau klik
+                untuk memilih file
+              </p>
+            )}
+          </div>
 
-        <Button
-          className="mt-4 text-white rounded w-full flex justify-center items-center text-lg"
-          onClick={handleUpload}
-          disabled={isUploading}
-          size="lg"
-        >
-          {isUploading ? <BallTriangleLoad /> : "Verifikasi"}
-        </Button>
+          <Button
+            className="mt-4 text-white rounded w-full flex justify-center items-center text-lg"
+            onClick={handleUpload}
+            disabled={isUploading}
+            size="lg"
+          >
+            {isUploading ? (
+              <span className="loader-button"></span>
+            ) : (
+              "VERIFIKASI"
+            )}
+            {/* <span className="loader-button"></span> */}
+          </Button>
+        </div>
 
         {message.description && (
           <div className="absolute right-3 bottom-16 z-50">

@@ -34,12 +34,12 @@ export default function Dashboard() {
   return (
     <>
       <div className="h-full w-full flex flex-col overflow-y-scroll bg-slate-100 bg-cover bg-center bg-no-repeat">
-        <section className="min-w-full h-full flex flex-col justify-start items-center py-3 px-8 space-y-5 backdrop-blur-sm overflow-x-hidden">
+        <section className="min-w-full h-full flex flex-col justify-start items-center py-3 px-4 space-y-5 backdrop-blur-sm overflow-x-hidden">
           <header className="w-full h-20 flex pt-10 justify-between items-end">
             <h1 className="font-semibold text-3xl font-sans">
-              Let`s make <br /> for bright future
+              Let`s make <br /> our bright future
             </h1>
-            <UserMenu />
+            <UserMenu profile={user.profileImage} username={user.username}/>
           </header>
 
           <CardWord userPoints={user.points} />
